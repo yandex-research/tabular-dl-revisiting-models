@@ -156,12 +156,15 @@ pip install -r requirements.txt
 conda install nodejs -y
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
+
 # if the following commands do not succeed, update conda
 conda env config vars set PYTHONPATH=${PYTHONPATH}:${PROJECT_DIR}
 conda env config vars set PROJECT_DIR=${PROJECT_DIR}
 conda env config vars set LD_LIBRARY_PATH=${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}
 conda env config vars set CUDA_HOME=${CONDA_PREFIX}
 conda env config vars set CUDA_ROOT=${CONDA_PREFIX}
+# When there are multiple GPUs, this sentence needs to be added, otherwise it will cause errors in the GPU information recording in status.json. The GPU number in Nvidia smi defaults to PCI-BUS-ID, while in PyTorch code, the device sorting is FASTES-FIRST by default
+conda env config vars set CUDA_DEVICE_ORDER="PCI_BUS_ID"
 
 conda deactivate
 conda activate revisiting-models
